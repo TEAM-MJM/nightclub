@@ -1,42 +1,122 @@
 # Night Club
 
+Eksamensopgave ud fra givent design, udviklet i Next.js med Tailwind CSS og en lokal API-struktur. Projektet er opbygget efter en modulær mappe- og komponentstruktur, og udviklingsprocessen har fulgt en iterativ tilgang med Gitflow som versionsstyringsmetode.
+
 Dette er en eksamens opgave på Frontend valgfaget.
 
-Eksamens opgaven er udarbejdet af Mads, Jonathan og Marius.
+Eksamens opgaven er udarbejdet af Mads Buchhave, Jonathan Skadhauge og Marius Jacob Engelbredt.
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## Teknologier
 
-First, run the development server:
+Projektet er udviklet med følgende teknologier og værktøjer:
 
-```bash
+Next.js (App Router)
+
+React
+
+Tailwind CSS
+
+Node.js
+
+Lokal API / API routes i Next.js
+
+Git & Gitflow
+
+Supplerende libs: form-håndtering, media player, database, auth, e.l.
+
+## Installation og opsætning
+
+Installation:
+
+``
+npm install
+`` 
+
+Start developer server (localhost:3000)
+
+``
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+``
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Projektstruktur
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Projektets struktur er organiseret efter sektioner, hvor hver sektion indeholder egne komponenter, scripts og logik. Dette understøtter høj modularitet og gør projektet lettere at vedligeholde.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Projektstruktur:
 
-## Learn More
+/src
+  /public
+  /app
+    layout.tsx
+    globals.css
+    page.tsx
+    /blog
+      page.tsx
+        /[slug]
+          page.tsx
+    /book-table
+      page.tsx
+    /contact-us
+      page.tsx
+    /api
+      /blog
+        route.ts
+      /book-table
+        route.ts
+      /contact
+        route.ts
 
-To learn more about Next.js, take a look at the following resources:
+  /components
+    Navbar.tsx
+    Footer.tsx
+    Button.tsx
+    Input.tsx
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  /sections
+    /section
+      component.tsx
+      script.ts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Udviklingsproces
 
-## Deploy on Vercel
+### Gitflow
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Projektet er udviklet med Gitflow-modellen, hvilket betyder:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+main: produktionsklar kode
+
+feature-branches: én branch pr. funktion, komponent eller sektion
+
+Fordele ved denne udviklingsproces:
+
+Nem paralleludvikling
+
+Klar separation mellem færdige features og ufærdige ændringer
+
+Minimal risiko for konflikter i funktionaliteter.
+
+### Iterativ udvikling
+
+Arbejdet er udført i iterationer, typisk bestående af:
+
+- Krav og afklaring
+
+- Design og planlægning
+
+- Implementering
+
+- Test
+
+- Evaluering og næste iteration
+
+Dette har gjort det muligt løbende at tilpasse projektet baseret på funktionelle behov og teknisk læring.
+
+## API Struktur
+
+## Funktionalitet
+
+
+
+  
