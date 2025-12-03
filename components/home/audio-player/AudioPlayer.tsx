@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { Play, Pause, Volume, SkipForward, SkipBack, Shuffle } from "lucide-react";
+import { Play, Pause, Volume2, SkipForward, SkipBack, Shuffle } from "lucide-react";
 
 export default function AudioPlayer() {
   // track array
@@ -161,58 +161,62 @@ export default function AudioPlayer() {
 
       {/* Afspiller */}
       <div className="max-w-[1440px] mx-auto my-24">
-        <div className="flex gap-60">
+        <div className="flex gap-8">
           {/* Track img */}
           <div className="w-[336px] h-[308px] bg-gray-800 shrink-0">
             <Image src={currentTrack.trackImg} alt={currentTrack.title} width={336} height={308} />
           </div>
-        </div>
+          <div className="w-full gap-8 flex flex-col justify-center pt-4">
+            <h3 className="text-2xl font-medium text-md text-white uppercase">{currentTrack.title}</h3>
 
-        {/* Track info */}
-        <div className="flex flex-col justify-between">
-          <div className="flex-1 flex flex-col justify-center">
-            <h3 className="text-2xl font-medium text-white uppercase">{currentTrack.title}</h3>
-            <p className="text-white uppercase">
-              {formatTime(currentTime)} / {formatTime(currentTrack.duration)}
-            </p>
-          </div>
+            {/* Track info */}
+            <div className="flex flex-col justify-between">
+              <div className="flex-1 flex flex-col justify-center"></div>
+            </div>
 
-          {/* Controls knapper */}
-          <div className="flex items-center justify-center gap-6 mb-8">
-            {/* skipback */}
-            <button onClick={handlePrev} className="text-white hover:text-primary transition-colors">
-              <SkipBack size={32} />
-            </button>
+            {/* Progress bar */}
+            <div className="mb-8">
+              <div className="relative w-full h-1 bg-gray-200 cursor-pointer" onClick={handleProgressClick}>
+                <div className="absolute h-full bg-primary" style={{ width: `${(currentTime / currentTrack.duration) * 100}%` }} />
 
-            {/* play/pause */}
-            <button onClick={handlePlay} className="text-white hover:text-primary transition-colors">
-              {isPlaying ? <Pause size={48} /> : <Play size={48} />}
-            </button>
+                {/* Cirkel til progress bar */}
+                <div className="absolute w-6 h-6 bg-white rounded-full -top-2.5 transform -translate-x-1/2" style={{ left: `${(currentTime / currentTrack.duration) * 100}%` }} />
+              </div>
+            </div>
 
-            {/* skipforward */}
-            <button onClick={handleNext} className="text-white hover:text-primary transition-colors">
-              <SkipForward size={32} />
-            </button>
+            {/* Controls */}
+            <div className="flex w-full items-center justify-between gap-6 mb-8">
+              {/* Timer */}
+              <p className="text-white uppercase">
+                {formatTime(currentTime)} / {formatTime(currentTrack.duration)}
+              </p>
+              <div className="flex items-center justify-center gap-8">
+                {/* skipback */}
+                <button onClick={handlePrev} className="text-white hover:text-primary transition-colors">
+                  <SkipBack size={32} />
+                </button>
 
-            {/* shuffle */}
-            <button onClick={handleShuffle} className={`text-white hover:text-primary transition-colors ${isShuffle ? "text-primary" : ""}`}>
-              <Shuffle size={32} />
-            </button>
-          </div>
+                {/* play/pause */}
+                <button onClick={handlePlay} className="text-white hover:text-primary transition-colors">
+                  {isPlaying ? <Pause size={48} /> : <Play size={48} />}
+                </button>
 
-          {/* Volume */}
-          <div className="flex items-center gap-4 mb-8">
-            <Volume size={24} className="text-white" />
-            <input type="range" min={0} max={1} step={0.01} value={volume} onChange={handleVolumeChange} className="w-32 h-1 bg-gray-700 appearance-none cursor-pointer" />
-          </div>
+                {/* skipforward */}
+                <button onClick={handleNext} className="text-white hover:text-primary transition-colors">
+                  <SkipForward size={32} />
+                </button>
 
-          {/* Progress bar */}
-          <div className="mb-8">
-            <div className="relative w-full h-1 bg-gray-700 cursor-pointer" onClick={handleProgressClick}>
-              <div className="absolute h-full bg-primary" style={{ width: `${(currentTime / currentTrack.duration) * 100}%` }} />
+                {/* shuffle */}
+                <button onClick={handleShuffle} className={`text-white hover:text-primary transition-colors ${isShuffle ? "text-primary" : ""}`}>
+                  <Shuffle size={32} />
+                </button>
+              </div>
 
-              {/* Cirkel til progress bar */}
-              <div className="absolute w-6 h-6 bg-white rounded-full -top-2.5 transform -translate-x-1/2" style={{ left: `${(currentTime / currentTrack.duration) * 100}%` }} />
+              {/* Volume */}
+              <div className="flex items-center gap-4">
+                <Volume2 size={24} className="text-white" />
+                <input type="range" min={0} max={1} step={0.01} value={volume} onChange={handleVolumeChange} className="w-32 h-1 bg-primary appearance-none cursor-pointer rounded-full [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-0" />
+              </div>
             </div>
           </div>
         </div>
