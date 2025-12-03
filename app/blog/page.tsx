@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import Image from "next/image";
-import { stringify } from "querystring";
+import Button from "@/components/shared/button/Button";
 
 export default async function blogPage() {
   return (
@@ -22,10 +22,11 @@ const FetchBlogs = async () => {
       <Image src={blog.asset.url} alt={blog.title} width={500} height={500}></Image>
       <article>
         <h3>{blog.title}</h3>
-        <p className="flex gap-2 text-primary">
+        <div className="flex gap-2 text-primary">
           {blog.author} <FetchComments id={blog.id} /> <p>16 Nov 2018</p>
-        </p>
+        </div>
         <p>{blog.content.slice(0, 367)}</p>
+        <Button text="Read More" isLink={true} route={`/blog/${blog.id}`}></Button>
       </article>
     </section>
   ));
