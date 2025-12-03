@@ -18,7 +18,7 @@ const Navigation = () => {
       <div className="flex items-center justify-between mx-auto px-8 max-w-350 h-full gap-16">
         <Link href="/" className="relative shrink-0">
           <Image
-            src="/images/logo/Logo.png"
+            src="/assets/Logo.png"
             alt="NIGHTCLUB - HAVE A GOOD TIME"
             width={228}
             height={54}

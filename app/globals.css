@@ -45,6 +45,9 @@ body {
   --color-primary: var(--primary);
   --color-white: var(--white);
   --color-black: var(--black);
+  --color-bg-overlay-dark: var(--bg-overlay-dark);
+  --color-bg-overlay-medium: var(--bg-overlay-medium);
+  --color-bg-overlay-light: var(--bg-overlay-light);
 
   --text-xs: var(--font-size-xs);
   --text-sm: var(--font-size-sm);
