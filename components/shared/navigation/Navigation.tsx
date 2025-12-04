@@ -13,7 +13,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="sticky top-0 lg:h-[124px] h-[107px] bg-[#000000e1] border-2 border-primary">
+    <nav className="sticky top-0 lg:h-[124px] h-[107px] bg-[#000000e1] border-2 border-primary z-50">
       <div className="absolute -top-0.5 -left-0.5 w-0 h-0 border-t-30 border-t-primary border-r-30 border-r-transparent" />
       <div className="flex items-center justify-between mx-auto px-8 max-w-350 h-full gap-16">
         <Link href="/" className="relative shrink-0">
