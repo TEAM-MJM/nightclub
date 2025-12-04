@@ -4,12 +4,13 @@ interface ButtonProps {
   text?: string;
   isLink?: boolean;
   route?: string;
+  stylePlace?: string;
 }
 
-const Button = ({ text, isLink = false, route = "#" }: ButtonProps) => {
+const Button = ({ text, isLink = false, route = "#", stylePlace }: ButtonProps) => {
   if (isLink) {
     return (
-      <Link href={route} className="border-y-2 border-white px-8 uppercase py-4">
+      <Link href={route} className={`border-y-2 border-white px-8 uppercase py-4 ${stylePlace}`}>
         {text}
       </Link>
     );
