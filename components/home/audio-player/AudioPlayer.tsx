@@ -10,35 +10,30 @@ export default function AudioPlayer() {
     {
       id: 1,
       title: "YOU BELONG WITH ME 2",
-      duration: 214,
       audioSrc: "/assets/media/black-box-funky.mp3",
       trackImg: "/assets/content-img/track1.jpg",
     },
     {
       id: 2,
       title: "EUPHORIA",
-      duration: 136,
       audioSrc: "/assets/media/euphoria.mp3",
       trackImg: "/assets/content-img/track2.jpg",
     },
     {
       id: 3,
       title: "MIDNIGHT DANCE",
-      duration: 154,
       audioSrc: "/assets/media/fashion-red-tape.mp3",
       trackImg: "/assets/content-img/track3.jpg",
     },
     {
       id: 4,
       title: "TRACK 4",
-      duration: 136,
       audioSrc: "/assets/media/euphoria.mp3",
       trackImg: "/assets/content-img/track4.jpg",
     },
     {
       id: 5,
       title: "TRACK 5",
-      duration: 154,
       audioSrc: "/assets/media/fashion-red-tape.mp3",
       trackImg: "/assets/content-img/track5.jpg",
     },
@@ -91,7 +86,7 @@ export default function AudioPlayer() {
     const progressBar = e.currentTarget;
     const clickX = e.clientX - progressBar.getBoundingClientRect().left;
     const width = progressBar.offsetWidth;
-    const clickedTime = (clickX / width) * currentTrack.duration;
+    const clickedTime = (clickX / width) * duration;
     if (audioRef.current) {
       audioRef.current.currentTime = clickedTime;
       setCurrentTime(clickedTime);
@@ -128,6 +123,7 @@ export default function AudioPlayer() {
       audio.src = currentTrack.audioSrc;
       audio.load();
       setCurrentTime(0);
+      setDuration(0); // Reset duration indtil metadata loader
       loadedTrackSrc.current = currentTrack.audioSrc;
     }
 
@@ -164,7 +160,7 @@ export default function AudioPlayer() {
         <div className="flex gap-8">
           {/* Track img */}
           <div className="w-[336px] h-[308px] bg-gray-800 shrink-0">
-            <Image src={currentTrack.trackImg} alt={currentTrack.title} width={336} height={308} />
+            <Image src={currentTrack.trackImg} alt={currentTrack.title} width={336} height={308} loading="lazy" />
           </div>
           <div className="w-full gap-8 flex flex-col justify-center pt-4">
             <h3 className="text-2xl font-medium text-md text-white uppercase">{currentTrack.title}</h3>
@@ -177,10 +173,10 @@ export default function AudioPlayer() {
             {/* Progress bar */}
             <div className="mb-8">
               <div className="relative w-full h-1 bg-gray-200 cursor-pointer" onClick={handleProgressClick}>
-                <div className="absolute h-full bg-primary" style={{ width: `${(currentTime / currentTrack.duration) * 100}%` }} />
+                <div className="absolute h-full bg-primary" style={{ width: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }} />
 
                 {/* Cirkel til progress bar */}
-                <div className="absolute w-6 h-6 bg-white rounded-full -top-2.5 transform -translate-x-1/2" style={{ left: `${(currentTime / currentTrack.duration) * 100}%` }} />
+                <div className="absolute w-6 h-6 bg-white rounded-full -top-2.5 transform -translate-x-1/2" style={{ left: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }} />
               </div>
             </div>
 
@@ -188,7 +184,7 @@ export default function AudioPlayer() {
             <div className="flex w-full items-center justify-between gap-6 mb-8">
               {/* Timer */}
               <p className="text-white uppercase">
-                {formatTime(currentTime)} / {formatTime(currentTrack.duration)}
+                {formatTime(currentTime)} / {formatTime(duration)}
               </p>
               <div className="flex items-center justify-center gap-8">
                 {/* skipback */}
@@ -215,7 +211,10 @@ export default function AudioPlayer() {
               {/* Volume */}
               <div className="flex items-center gap-4">
                 <Volume2 size={24} className="text-white" />
-                <input type="range" min={0} max={1} step={0.01} value={volume} onChange={handleVolumeChange} className="w-32 h-1 bg-primary appearance-none cursor-pointer rounded-full [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-0" />
+                <div className="relative w-32 h-1 bg-gray-200 rounded-full">
+                  <div className="absolute h-full bg-primary rounded-full" style={{ width: `${volume * 100}%` }} />
+                  <input type="range" min={0} max={1} step={0.01} value={volume} onChange={handleVolumeChange} className="absolute inset-0 w-full appearance-none cursor-pointer bg-transparent [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:relative [&::-webkit-slider-thumb]:z-10 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:relative [&::-moz-range-thumb]:z-10" />
+                </div>
               </div>
             </div>
           </div>
