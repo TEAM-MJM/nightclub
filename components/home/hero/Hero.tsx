@@ -18,7 +18,7 @@ const Hero = () => {
         </div>
       }
     >
-      <section className="w-full h-dvh flex items-center justify-center">
+      <section className="w-full h-dvh flex items-center justify-center -mb-[107px] lg:-mb-[124px] relative overflow-hidden snap-y">
         <Suspense>
           <HeroBackground />
         </Suspense>
