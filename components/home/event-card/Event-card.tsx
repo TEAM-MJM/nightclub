@@ -121,7 +121,7 @@ const EventCard = ({ event }: EventCardProps) => {
               <Link href="/book-table">
                 <motion.button
                   variants={contentVariants2}
-                  className="absolute top-40 right-1/2 bg-primary text-white text-sm w-fit px-6 py-4 transform translate-x-1/2 rounded-sm cursor-pointer hover:scale-105 transition-[scale] duration-300 active:scale-95"
+                  className="absolute sm:top-1/3 sm:right-1/2 top-5 right-5 bg-primary text-white text-sm w-fit px-6 py-4 transform sm:translate-x-1/2 rounded-sm cursor-pointer hover:scale-105 transition-[scale] duration-300 active:scale-95"
                 >
                   Book Now
                 </motion.button>
