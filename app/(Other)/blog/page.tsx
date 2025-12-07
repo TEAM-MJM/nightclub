@@ -31,7 +31,7 @@ const FetchBlogs = async () => {
           {blog.author} <FetchComments id={blog.id} /> <p>16 Nov 2018</p>
         </div>
         <p className="line-clamp-3">{blog.content}</p>
-        <Button text="Read More" stylePlace="self-end mt-5" isLink={true} route={`/blog/${blog.id}`}></Button>
+        <Button text="Read More" stylePlace="place-self-end mt-5" isLink={true} route={`/blog/${blog.id}`}></Button>
       </article>
     </section>
   ));
