@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { Play, Pause, Volume2, SkipForward, SkipBack, Shuffle } from "lucide-react";
+import AudioPlayerGallery from "./AudioPlayerGallery";
 
 export default function AudioPlayer() {
   // track array
@@ -220,6 +221,8 @@ export default function AudioPlayer() {
           </div>
         </div>
       </div>
+      {/* Track gallery */}
+      <AudioPlayerGallery tracks={tracks} currentTrackIndex={currentTrackIndex} onSelectTrack={setCurrentTrackIndex} />
     </section>
   );
 }
