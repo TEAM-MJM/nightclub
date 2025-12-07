@@ -1,7 +1,7 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import Image from "next/image";
@@ -40,10 +40,15 @@ const Events = ({ events }: EventsProps) => {
     >
       <section className="px-4 max-w-[708px] lg:max-w-full mx-auto">
         <Swiper
-          modules={[Pagination]}
+          modules={[Pagination, Autoplay]}
           spaceBetween={24}
           slidesPerView={1}
           slidesPerGroup={1}
+          loop={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: true,
+          }}
           onSlideChange={() => console.log("slide change")}
           onSwiper={(swiper) => console.log(swiper)}
           pagination={{ clickable: true, type: "bullets" }}
