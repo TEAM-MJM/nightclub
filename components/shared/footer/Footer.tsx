@@ -45,7 +45,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section - Social & Copyright */}
-        <div className="grid lg:grid-cols-3 grid-cols-1 gap-16 items-center pt-16">
+        <div className="grid lg:grid-cols-3 grid-cols-1 gap-16 items-center lg:pt-16 pt-0">
           <div>
             <p className="font-medium text-sm text-white leading-relaxed tracking-normal text-center lg:text-left">
               Night Club PSD Template - All Rights Reserved

@@ -78,7 +78,7 @@ const Welcome = () => {
 
   return (
     <section className="mt-32 mx-auto px-4">
-      <div className="mx-auto px-60">
+      <div className="mx-auto max-w-5xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-medium uppercase text-white mb-4">Welcome in nightclub</h2>
         </div>

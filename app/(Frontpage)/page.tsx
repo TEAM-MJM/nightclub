@@ -2,6 +2,7 @@ import Image from "next/image";
 import AudioPlayer from "@/components/home/audio-player/AudioPlayer";
 import Welcome from "@/components/home/welcome-section/Welcome";
 import EventsContainer from "@/components/home/Events-container/EventsContainer";
+import TestimonialsContainer from "@/components/home/testimonials-container/TestimonialsContainer";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
         <Welcome />
         <EventsContainer />
         <AudioPlayer />
+        <TestimonialsContainer />
       </main>
     </div>
   );
