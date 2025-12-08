@@ -59,7 +59,7 @@ export default function VideoPlayer() {
       </div>
 
       {/* Video container */}
-      <div className="relative w-full h-[608px] mb-14">
+      <div className="relative w-full lg:h-[608px]  mb-14">
         <div className="absolute -top-0.5 -left-0.5 w-0 h-0 border-t-104 border-t-primary border-r-104 border-r-transparent" />
         <div className="absolute -bottom-0.5 -right-0.5 w-0 h-0 border-b-104 border-b-primary border-l-104 border-l-transparent" />
         <video ref={videoRef} className="w-full h-full object-cover" onEnded={handleVideoEnd} autoPlay muted playsInline>

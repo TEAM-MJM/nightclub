@@ -24,19 +24,19 @@ export default function AudioPlayer() {
       id: 3,
       title: "MIDNIGHT DANCE",
       audioSrc: "/assets/media/fashion-red-tape.mp3",
-      trackImg: "/assets/content-img/track3.jpg",
+      trackImg: "/assets/content-img/track4.jpg",
     },
     {
       id: 4,
       title: "TRACK 4",
       audioSrc: "/assets/media/euphoria.mp3",
-      trackImg: "/assets/content-img/track4.jpg",
+      trackImg: "/assets/content-img/track5.jpg",
     },
     {
       id: 5,
       title: "TRACK 5",
       audioSrc: "/assets/media/fashion-red-tape.mp3",
-      trackImg: "/assets/content-img/track5.jpg",
+      trackImg: "/assets/content-img/track2.jpg",
     },
   ];
 
@@ -51,6 +51,7 @@ export default function AudioPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const loadedTrackSrc = useRef<string>("");
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showImage, setShowImage] = useState(true);
   const [isShuffle, setIsShuffle] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -94,6 +95,19 @@ export default function AudioPlayer() {
     }
   };
 
+  // Håndter responsive billede visning
+  useEffect(() => {
+    const handleResize = () => {
+      setShowImage(window.innerWidth >= 1440);
+    };
+
+    // Sæt initial værdi
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Event listeners
   useEffect(() => {
     const audio = audioRef.current;
@@ -124,7 +138,7 @@ export default function AudioPlayer() {
       audio.src = currentTrack.audioSrc;
       audio.load();
       setCurrentTime(0);
-      setDuration(0); // Reset duration indtil metadata loader
+      setDuration(0);
       loadedTrackSrc.current = currentTrack.audioSrc;
     }
 
@@ -149,22 +163,24 @@ export default function AudioPlayer() {
       <audio ref={audioRef}></audio>
 
       {/* Sektions titel */}
-      <div className="mx-auto px-60">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-medium uppercase text-white mb-4">Night Club Track</h2>
+      <div className="mx-auto px-4 sm:px-8 lg:px-60">
+        <div className="text-center mb-8 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium uppercase text-white mb-4 tracking-wider">Night Club Track</h2>
         </div>
         <div className="h-0.5 bg-linear-to-r from-transparent via-primary to-transparent mt-2"></div>
       </div>
 
       {/* Afspiller */}
-      <div className="max-w-[1440px] mx-auto my-24">
-        <div className="flex gap-8">
-          {/* Track img */}
-          <div className="w-[336px] h-[308px] bg-gray-800 shrink-0">
-            <Image src={currentTrack.trackImg} alt={currentTrack.title} width={336} height={308} loading="lazy" />
-          </div>
-          <div className="w-full gap-8 flex flex-col justify-center pt-4">
-            <h3 className="text-2xl font-medium text-md text-white uppercase">{currentTrack.title}</h3>
+      <div className="max-w-[1440px] mx-auto my-12 sm:my-16 lg:my-24 px-4 sm:px-8">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+          {/* Track img - kun på desktop */}
+          {showImage && (
+            <div className="w-[336px] h-[308px] bg-gray-800 shrink-0">
+              <Image src={currentTrack.trackImg} alt={currentTrack.title} width={336} height={308} loading="lazy" className="w-full h-full object-cover" />
+            </div>
+          )}
+          <div className="w-full gap-4 sm:gap-6 lg:gap-8 flex flex-col justify-center pt-4">
+            <h3 className="text-lg sm:text-xl lg:text-2xl font-medium text-white uppercase text-center lg:text-left">{currentTrack.title}</h3>
 
             {/* Track info */}
             <div className="flex flex-col justify-between">
@@ -172,49 +188,50 @@ export default function AudioPlayer() {
             </div>
 
             {/* Progress bar */}
-            <div className="mb-8">
+            <div className="mb-4 sm:mb-6 lg:mb-8">
               <div className="relative w-full h-1 bg-gray-200 cursor-pointer" onClick={handleProgressClick}>
                 <div className="absolute h-full bg-primary" style={{ width: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }} />
 
                 {/* Cirkel til progress bar */}
-                <div className="absolute w-6 h-6 bg-white rounded-full -top-2.5 transform -translate-x-1/2" style={{ left: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }} />
+                <div className="absolute w-5 h-5 sm:w-6 sm:h-6 bg-white rounded-full -top-2 sm:-top-2.5 transform -translate-x-1/2" style={{ left: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }} />
               </div>
             </div>
 
+            {/* Timer - centreret på mobile */}
+            <p className="text-white uppercase text-center lg:text-left text-sm sm:text-base mb-4 sm:mb-6 lg:mb-0">
+              {formatTime(currentTime)} / {formatTime(duration)}
+            </p>
+
             {/* Controls */}
-            <div className="flex w-full items-center justify-between gap-6 mb-8">
-              {/* Timer */}
-              <p className="text-white uppercase">
-                {formatTime(currentTime)} / {formatTime(duration)}
-              </p>
-              <div className="flex items-center justify-center gap-8">
+            <div className="flex flex-col lg:flex-row w-full items-center justify-center lg:justify-between gap-6 lg:gap-6 mb-4 sm:mb-6 lg:mb-8">
+              <div className="flex items-center justify-center gap-6 sm:gap-8">
                 {/* skipback */}
                 <button onClick={handlePrev} className="text-white hover:text-primary transition-colors">
-                  <SkipBack size={32} />
+                  <SkipBack className="w-7 h-7 sm:w-8 sm:h-8" />
                 </button>
 
                 {/* play/pause */}
                 <button onClick={handlePlay} className="text-white hover:text-primary transition-colors">
-                  {isPlaying ? <Pause size={48} /> : <Play size={48} />}
+                  {isPlaying ? <Pause className="w-12 h-12 sm:w-14 sm:h-14" /> : <Play className="w-12 h-12 sm:w-14 sm:h-14" />}
                 </button>
 
                 {/* skipforward */}
                 <button onClick={handleNext} className="text-white hover:text-primary transition-colors">
-                  <SkipForward size={32} />
+                  <SkipForward className="w-7 h-7 sm:w-8 sm:h-8" />
                 </button>
 
                 {/* shuffle */}
                 <button onClick={handleShuffle} className={`text-white hover:text-primary transition-colors ${isShuffle ? "text-primary" : ""}`}>
-                  <Shuffle size={32} />
+                  <Shuffle className="w-7 h-7 sm:w-8 sm:h-8" />
                 </button>
               </div>
 
               {/* Volume */}
-              <div className="flex items-center gap-4">
-                <Volume2 size={24} className="text-white" />
-                <div className="relative w-32 h-1 bg-gray-200 rounded-full">
+              <div className="flex items-center gap-3 sm:gap-4 w-full lg:w-auto justify-center max-w-xs lg:max-w-none">
+                <Volume2 className="w-5 h-5 sm:w-6 sm:h-6 text-white shrink-0" />
+                <div className="relative w-full lg:w-32 h-1 bg-gray-200 rounded-full">
                   <div className="absolute h-full bg-primary rounded-full" style={{ width: `${volume * 100}%` }} />
-                  <input type="range" min={0} max={1} step={0.01} value={volume} onChange={handleVolumeChange} className="absolute inset-0 w-full appearance-none cursor-pointer bg-transparent [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:relative [&::-webkit-slider-thumb]:z-10 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:relative [&::-moz-range-thumb]:z-10" />
+                  <input type="range" min={0} max={1} step={0.01} value={volume} onChange={handleVolumeChange} className="absolute inset-0 w-full appearance-none cursor-pointer bg-transparent [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 sm:[&::-webkit-slider-thumb]:w-5 sm:[&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:relative [&::-webkit-slider-thumb]:z-10 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 sm:[&::-moz-range-thumb]:w-5 sm:[&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:relative [&::-moz-range-thumb]:z-10" />
                 </div>
               </div>
             </div>
