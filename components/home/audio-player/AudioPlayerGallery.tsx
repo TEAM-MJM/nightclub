@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Play, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -31,67 +31,103 @@ interface AudioPlayerGalleryProps {
 export default function AudioPlayerGallery({ tracks, onSelectTrack, currentTrackIndex }: AudioPlayerGalleryProps) {
   //states
   const [startIndex, setStartIndex] = useState(0);
-  const tracksToShow = 5;
 
-  // Nav handlers
+  // Responsivt antal tracks
+  const getTracksToShow = () => {
+    const width = window.innerWidth;
+    if (width < 768) return 1;
+    if (width < 1200) return 2;
+    if (width < 1440) return 3;
+    return 5;
+  };
+
+  const [tracksToShow, setTracksToShow] = useState(5);
+
+  useEffect(() => {
+    setTracksToShow(getTracksToShow());
+
+    const handleResize = () => {
+      setTracksToShow(getTracksToShow());
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Juster startIndex når tracksToShow ændrer sig
+  useEffect(() => {
+    const maxStartIndex = Math.max(0, tracks.length - tracksToShow);
+    if (startIndex > maxStartIndex) {
+      setStartIndex(maxStartIndex);
+    }
+  }, [tracksToShow, tracks.length, startIndex]);
+
+  // Nav handlers med looping
   const handlePrev = () => {
-    setStartIndex((prevIndex) => Math.max(0, prevIndex - 1));
+    setStartIndex((prevIndex) => {
+      // Loop rundt hvis vi er ved starten
+      if (prevIndex <= 0) {
+        return tracks.length - 1;
+      }
+      return prevIndex - 1;
+    });
   };
 
   const handleNext = () => {
-    setStartIndex((prevIndex) => Math.min(tracks.length - tracksToShow, prevIndex + 1));
+    setStartIndex((prevIndex) => {
+      if (prevIndex >= tracks.length - 1) {
+        return 0;
+      }
+      return prevIndex + 1;
+    });
   };
-
-  const canGoPrev = startIndex > 0;
-  const canGoNext = startIndex < tracks.length - tracksToShow;
 
   const visibleTracks = tracks.slice(startIndex, startIndex + tracksToShow);
 
   return (
-    <div className="max-w-[1440px] mx-auto my-16">
-      <div className="relative flex items-center justify-center gap-4">
-        {/* Venstre navigation */}
-        <button onClick={handlePrev} disabled={!canGoPrev} className={`w-12 h-12 flex items-center justify-center border-2 border-white transition-colors ${canGoPrev ? "hover:border-primary hover:text-primary text-white" : "opacity-30 cursor-not-allowed text-white"}`} aria-label="Previous tracks">
-          <ChevronLeft size={32} />
-        </button>
+    <div className="w-full my-8 p-1 md:my-16">
+      <div className="max-w-[1440px] mx-auto px-0 sm:p-2 lg:px-8">
+        <div className="relative flex items-center justify-center gap-1 sm:gap-4">
+          {/* Venstre navigation */}
+          <button onClick={handlePrev} className="w-10 h-10 flex items-center justify-center border-2 border-white transition-colors hover:border-primary hover:text-primary text-white">
+            <ChevronLeft className="w-6 h-6" />
+          </button>
 
-        {/* Track gallery */}
-        <div className="flex gap-0">
-          {visibleTracks.map((track, index) => {
-            const actualIndex = startIndex + index;
-            const isActive = actualIndex === currentTrackIndex;
+          {/* Track gallery */}
+          <div className="flex gap-0 overflow-hidden flex-1 sm:flex-initial">
+            {visibleTracks.map((track, index) => {
+              const actualIndex = startIndex + index;
+              const isActive = actualIndex === currentTrackIndex;
 
-            return (
-              <div key={track.id} className="relative w-[288px] h-[264px] group cursor-pointer overflow-hidden" onClick={() => onSelectTrack(actualIndex)}>
-                {/* Track billede */}
-                <Image src={track.trackImg} alt={track.title} width={288} height={264} className="w-full h-full object-cover" />
+              return (
+                <div key={track.id} className="relative w-full sm:w-[288px] aspect-square group cursor-pointer overflow-hidden" onClick={() => onSelectTrack(actualIndex)}>
+                  {/* Track billede */}
+                  <Image src={track.trackImg} alt={track.title} width={288} height={264} className="w-full h-full object-cover" />
 
-                {/* Hover overlay */}
-                <div className={`absolute inset-0 bg-black/80 flex flex-col items-center justify-center gap-4 transition-opacity duration-300 ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
-                  {/* Play knap */}
-                  <div className="w-[52px] h-[52px] rounded-full bg-primary flex items-center justify-center">
-                    <Play size={24} className="text-white fill-white ml-1" />
+                  {/* Hover overlay med play knap */}
+                  <div className={`absolute inset-0 bg-black/80 flex items-center justify-center transition-opacity duration-300 ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
+                    {/* Play knap */}
+                    <div className="w-[52px] h-[52px] rounded-full bg-primary flex items-center justify-center">
+                      <Play size={24} className="text-white fill-white ml-1" />
+                    </div>
                   </div>
 
-                  {/* Track navn */}
-                  <p className="text-white text-lg uppercase tracking-wider px-4 text-center font-medium">{track.title.length > 15 ? `${track.title.substring(0, 15)}...` : track.title}</p>
+                  {/* Track titel kun synlig når aktiv */}
+                  {isActive && (
+                    <div className="absolute bottom-0 left-0 right-0 h-12 bg-black/90 flex items-center justify-center">
+                      <p className="text-white text-sm uppercase tracking-wider truncate px-2 font-medium">{track.title.length > 15 ? `${track.title.substring(0, 15)}...` : track.title}</p>
+                    </div>
+                  )}
                 </div>
+              );
+            })}
+          </div>
 
-                {/* Aktiv indikator */}
-                {isActive && (
-                  <div className="absolute bottom-0 left-0 right-0 h-12 bg-black/90 flex items-center justify-center">
-                    <p className="text-white text-sm uppercase tracking-wider truncate px-2 font-medium">{track.title.length > 15 ? `${track.title.substring(0, 15)}...` : track.title}</p>
-                  </div>
-                )}
-              </div>
-            );
-          })}
+          {/* Højre navigation */}
+          <button onClick={handleNext} className="w-10 h-10 flex items-center justify-center border-2 border-white transition-colors hover:border-primary hover:text-primary text-white mr-2 sm:mr-0">
+            <ChevronRight className="w-6 h-6" />
+          </button>
         </div>
-
-        {/* Højre navigation */}
-        <button onClick={handleNext} disabled={!canGoNext} className={`w-12 h-12 flex items-center justify-center border-2 border-white transition-colors ${canGoNext ? "hover:border-primary hover:text-primary text-white" : "opacity-30 cursor-not-allowed text-white"}`} aria-label="Next tracks">
-          <ChevronRight size={32} />
-        </button>
       </div>
     </div>
   );
