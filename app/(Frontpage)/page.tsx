@@ -3,6 +3,8 @@ import AudioPlayer from "@/components/home/audio-player/AudioPlayer";
 import Welcome from "@/components/home/welcome-section/Welcome";
 import EventsContainer from "@/components/home/Events-container/EventsContainer";
 import TestimonialsContainer from "@/components/home/testimonials-container/TestimonialsContainer";
+import VideoPlayer from "@/components/home/video-player/VideoPlayer";
+import { Video } from "lucide-react";
 
 export default function Home() {
   return (
@@ -11,6 +13,7 @@ export default function Home() {
         <Welcome />
         <EventsContainer />
         <AudioPlayer />
+        <VideoPlayer />
         <TestimonialsContainer />
       </main>
     </div>
