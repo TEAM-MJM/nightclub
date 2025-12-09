@@ -48,24 +48,21 @@ const CARDS = [
     image: "/assets/content-img/thumb1.jpg",
     icon: { type: "image" as const, src: "/assets/icon/Favicon.svg" },
     title: "NIGHT CLUB",
-    description:
-      "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
+    description: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
   },
   {
     id: 1,
     image: "/assets/content-img/reastaurant_1.jpg",
     icon: { type: "icon" as const, name: "HandPlatter" },
     title: "RESTAURANT",
-    description:
-      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
+    description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
   },
   {
     id: 2,
     image: "/assets/content-img/thumb2.jpg",
     icon: { type: "icon" as const, name: "Martini" },
     title: "BAR",
-    description:
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin.",
+    description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin.",
   },
 ];
 
@@ -78,93 +75,35 @@ const Welcome = () => {
 
   return (
     <section className="mt-32 mx-auto px-4">
-      <div className="mx-auto max-w-5xl">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-medium uppercase text-white mb-4">Welcome in nightclub</h2>
-        </div>
-        <div className="h-0.5 bg-linear-to-r from-transparent via-primary to-transparent mt-2"></div>
+      {/* Dynamisk sektion titel */}
+      <div className="relative h-[70px] mb-[61px]">
+        <h2 className="font-ubuntu font-medium text-[clamp(1.5rem,4vw,3rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">Welcome in nightclub</h2>
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-60 h-0.5 bg-linear-to-r from-transparent via-primary to-transparent" />
       </div>
+
       <Suspense
         fallback={
           <div className="mx-auto w-24 h-24 flex items-center justify-center my-24">
-            <Image
-              src="/assets/loader/madbars.gif"
-              alt="Loading..."
-              width={100}
-              height={100}
-              unoptimized
-            />
+            <Image src="/assets/loader/madbars.gif" alt="Loading..." width={100} height={100} unoptimized />
           </div>
         }
       >
         <div className="grid lg:grid-cols-3 grid-cols-1 lg:max-w-full max-w-[459px] my-24 gap-8 mx-auto">
           {CARDS.map((card, index) => (
-            <div
-              key={card.id}
-              className="grid grid-cols-1 grid-rows-1 w-full h-full relative overflow-hidden"
-            >
-              <Image
-                src={card.image}
-                alt="Welcome Image"
-                width={459}
-                height={573}
-                loading="lazy"
-                className="col-start-1 col-end-1 row-start-1 row-end-1 object-cover object-center"
-              />
-              <motion.div
-                initial="rest"
-                animate={activeCard === index ? "hover" : "rest"}
-                whileHover="hover"
-                onTap={() => handleCardTap(index)}
-                variants={parentVariants}
-                className="text-center items-center justify-center flex flex-col gap-4 col-start-1 col-end-1 row-start-1 row-end-1 p-6 w-full h-full relative bg-black"
-              >
-                <motion.div
-                  variants={cornerVariants}
-                  className="absolute top-0 left-0 w-0 h-0 border-t-100 border-t-primary border-r-100 border-r-transparent"
-                />
-                <motion.div
-                  variants={borderLineVariants}
-                  className="absolute top-0 left-0 w-full border-t-2 border-primary origin-left"
-                />
+            <div key={card.id} className="grid grid-cols-1 grid-rows-1 w-full h-full relative overflow-hidden">
+              <Image src={card.image} alt="Welcome Image" width={459} height={573} loading="lazy" className="col-start-1 col-end-1 row-start-1 row-end-1 object-cover object-center" />
+              <motion.div initial="rest" animate={activeCard === index ? "hover" : "rest"} whileHover="hover" onTap={() => handleCardTap(index)} variants={parentVariants} className="text-center items-center justify-center flex flex-col gap-4 col-start-1 col-end-1 row-start-1 row-end-1 p-6 w-full h-full relative bg-black">
+                <motion.div variants={cornerVariants} className="absolute top-0 left-0 w-0 h-0 border-t-100 border-t-primary border-r-100 border-r-transparent" />
+                <motion.div variants={borderLineVariants} className="absolute top-0 left-0 w-full border-t-2 border-primary origin-left" />
                 <motion.div variants={contentVariants} className="flex justify-center">
-                  {card.icon.type === "image" ? (
-                    <Image
-                      src={card.icon.src}
-                      alt="Icon"
-                      width={100}
-                      height={100}
-                      className="border-primary border-3 p-6 rounded-md"
-                    />
-                  ) : card.icon.name === "HandPlatter" ? (
-                    <HandPlatter
-                      size={100}
-                      color="var(--primary)"
-                      className="border-primary border-3 p-6 rounded-md"
-                    />
-                  ) : (
-                    <Martini
-                      size={100}
-                      color="var(--primary)"
-                      className="border-primary border-3 p-6 rounded-md"
-                    />
-                  )}
+                  {card.icon.type === "image" ? <Image src={card.icon.src} alt="Icon" width={100} height={100} className="border-primary border-3 p-6 rounded-md" /> : card.icon.name === "HandPlatter" ? <HandPlatter size={100} color="var(--primary)" className="border-primary border-3 p-6 rounded-md" /> : <Martini size={100} color="var(--primary)" className="border-primary border-3 p-6 rounded-md" />}
                 </motion.div>
-                <motion.h2
-                  variants={contentVariants}
-                  className="text-lg font-medium uppercase text-white"
-                >
+                <motion.h2 variants={contentVariants} className="text-lg font-medium uppercase text-white">
                   {card.title}
                 </motion.h2>
                 <motion.p variants={contentVariants2}>{card.description}</motion.p>
-                <motion.div
-                  variants={cornerVariants2}
-                  className="absolute bottom-0 right-0 w-0 h-0 border-b-100 border-b-primary border-l-100 border-l-transparent"
-                />
-                <motion.div
-                  variants={borderLineVariants2}
-                  className="absolute bottom-0 right-0 w-full border-b-2 border-primary origin-right"
-                />
+                <motion.div variants={cornerVariants2} className="absolute bottom-0 right-0 w-0 h-0 border-b-100 border-b-primary border-l-100 border-l-transparent" />
+                <motion.div variants={borderLineVariants2} className="absolute bottom-0 right-0 w-full border-b-2 border-primary origin-right" />
               </motion.div>
             </div>
           ))}

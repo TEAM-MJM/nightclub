@@ -21,27 +21,13 @@ const TestimonialsCard = ({ testimonial }: TestimonialsCardProps) => {
     <Suspense
       fallback={
         <div className="w-full h-48 flex items-center justify-center">
-          <Image
-            src="/assets/loader/madbars.gif"
-            alt="Loading..."
-            width={100}
-            height={100}
-            unoptimized
-          />
+          <Image src="/assets/loader/madbars.gif" alt="Loading..." width={100} height={100} unoptimized />
         </div>
       }
     >
       <div className="mx-auto text-center flex flex-col gap-6 items-center">
-        <Image
-          src={testimonial.asset.url}
-          alt={testimonial.name || "Testimonial"}
-          width={210}
-          height={210}
-          loading="lazy"
-          unoptimized
-          className="mx-auto"
-        />
-        <h2 className="text-lg uppercase">{testimonial.name}</h2>
+        <Image src={testimonial.asset.url} alt={testimonial.name || "Testimonial"} width={210} height={210} loading="lazy" unoptimized className="mx-auto" />
+        <h2 className="font-ubuntu font-medium text-[clamp(1.5rem,4vw,3rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">{testimonial.name}</h2>
         <p className="max-w-[1000px]">{testimonial.content}</p>
         <SocialIcons />
       </div>

@@ -52,9 +52,9 @@ export default function VideoPlayer() {
 
   return (
     <section className="max-w-[1440px] mx-auto px-[60px] py-16">
-      {/* Overskrift */}
+      {/* Dynamisk sektion titel */}
       <div className="relative h-[70px] mb-[61px]">
-        <h2 className="font-ubuntu font-medium text-[38px] tracking-[2.85px] uppercase text-white text-center leading-normal">latest video</h2>
+        <h2 className="font-ubuntu font-medium text-[clamp(1.5rem,4vw,3rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">Latest video</h2>
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-60 h-0.5 bg-linear-to-r from-transparent via-primary to-transparent" />
       </div>
 

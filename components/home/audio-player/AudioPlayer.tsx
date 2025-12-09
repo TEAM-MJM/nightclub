@@ -162,12 +162,10 @@ export default function AudioPlayer() {
     <section className="bg-black py-20">
       <audio ref={audioRef}></audio>
 
-      {/* Sektions titel */}
-      <div className="mx-auto px-4 sm:px-8 lg:px-60">
-        <div className="text-center mb-8 sm:mb-16">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium uppercase text-white mb-4 tracking-wider">Night Club Track</h2>
-        </div>
-        <div className="h-0.5 bg-linear-to-r from-transparent via-primary to-transparent mt-2"></div>
+      {/* Dynamisk sektion titel */}
+      <div className="relative h-[70px] mb-[61px]">
+        <h2 className="font-ubuntu font-medium text-[clamp(1.5rem,4vw,3rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">Night club track</h2>
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-60 h-0.5 bg-linear-to-r from-transparent via-primary to-transparent" />
       </div>
 
       {/* Afspiller */}
@@ -180,7 +178,7 @@ export default function AudioPlayer() {
             </div>
           )}
           <div className="w-full gap-4 sm:gap-6 lg:gap-8 flex flex-col justify-center pt-4">
-            <h3 className="text-lg sm:text-xl lg:text-2xl font-medium text-white uppercase text-center lg:text-left">{currentTrack.title}</h3>
+            <h3 className="font-ubuntu font-medium text-[clamp(1.5rem,4vw,3rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">{currentTrack.title}</h3>
 
             {/* Track info */}
             <div className="flex flex-col justify-between">
