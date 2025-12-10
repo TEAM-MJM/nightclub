@@ -1,5 +1,30 @@
 "use server";
 
+export const submitContact = async (formData) => {
+  const name = formData.get("name");
+  const email = formData.get("email");
+  const comment = formData.get("comment");
+
+  if (!name || !email || !comment) {
+    return { error: "All fields are required" };
+  }
+
+  const response = await fetch("http://localhost:4000/contact_messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      message: comment,
+      date: new Date().toISOString(),
+    }),
+  });
+
+  return response.ok ? { success: true } : { error: "Failed to send message." };
+};
+
 export const submitComment = async (prevState, formData) => {
   const error = {};
   let success = null;
