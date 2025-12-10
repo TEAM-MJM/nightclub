@@ -159,7 +159,7 @@ export default function AudioPlayer() {
   }, [currentTrack, isPlaying]);
 
   return (
-    <section className="bg-black py-20">
+    <section className="bg-black">
       <audio ref={audioRef}></audio>
 
       {/* Dynamisk sektion titel */}
@@ -169,17 +169,18 @@ export default function AudioPlayer() {
       </div>
 
       {/* Afspiller */}
-      <div className="max-w-[1440px] mx-auto my-12 sm:my-16 lg:my-24 px-4 sm:px-8">
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
-          {/* Track img - kun på desktop */}
+      <div className="max-w-[1440px] w-full xl:p-0 sm:p-4 mx-auto my-12 sm:my-16 lg:my-24">
+        <div className="flex flex-col items-center lg:flex-row lg:gap-8">
+          {/* Track img */}
           {showImage && (
             <div className="w-[336px] h-[308px] bg-gray-800 shrink-0">
               <Image src={currentTrack.trackImg} alt={currentTrack.title} width={336} height={308} loading="lazy" className="w-full h-full object-cover" />
             </div>
           )}
-          <div className="w-full gap-4 sm:gap-6 lg:gap-8 flex flex-col justify-center pt-4">
-            <h3 className="font-ubuntu font-medium text-[clamp(1.5rem,4vw,3rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">{currentTrack.title}</h3>
-
+          <div className="w-full gap-2 sm:gap-4 lg:gap-6 flex flex-col justify-center">
+            <div className="flex items-start">
+              <h3 className="font-ubuntu font-medium text-[clamp(1.5rem,4vw,3rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">{currentTrack.title}</h3>
+            </div>
             {/* Track info */}
             <div className="flex flex-col justify-between">
               <div className="flex-1 flex flex-col justify-center"></div>
@@ -195,13 +196,13 @@ export default function AudioPlayer() {
               </div>
             </div>
 
-            {/* Timer - centreret på mobile */}
-            <p className="text-white uppercase text-center lg:text-left text-sm sm:text-base mb-4 sm:mb-6 lg:mb-0">
-              {formatTime(currentTime)} / {formatTime(duration)}
-            </p>
-
             {/* Controls */}
             <div className="flex flex-col lg:flex-row w-full items-center justify-center lg:justify-between gap-6 lg:gap-6 mb-4 sm:mb-6 lg:mb-8">
+              {/* Timer */}
+              <p className="text-white uppercase text-center lg:text-left text-sm sm:text-base mb-4 sm:mb-6 lg:mb-0">
+                {formatTime(currentTime)} / {formatTime(duration)}
+              </p>
+
               <div className="flex items-center justify-center gap-6 sm:gap-8">
                 {/* skipback */}
                 <button onClick={handlePrev} className="text-white hover:text-primary transition-colors">
@@ -209,8 +210,8 @@ export default function AudioPlayer() {
                 </button>
 
                 {/* play/pause */}
-                <button onClick={handlePlay} className="text-white hover:text-primary transition-colors">
-                  {isPlaying ? <Pause className="w-12 h-12 sm:w-14 sm:h-14" /> : <Play className="w-12 h-12 sm:w-14 sm:h-14" />}
+                <button onClick={handlePlay} className="text-white border-4 border-white rounded-full p-2 hover:border-primary hover:text-primary transition-colors">
+                  {isPlaying ? <Pause className="w-10 h-10" /> : <Play className="w-10 h-10" />}
                 </button>
 
                 {/* skipforward */}
@@ -236,6 +237,7 @@ export default function AudioPlayer() {
           </div>
         </div>
       </div>
+
       {/* Track gallery */}
       <AudioPlayerGallery tracks={tracks} currentTrackIndex={currentTrackIndex} onSelectTrack={setCurrentTrackIndex} />
     </section>
