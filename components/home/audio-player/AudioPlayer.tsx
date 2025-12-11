@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Suspense } from "react";
 import Image from "next/image";
 import { Play, Pause, Volume2, SkipForward, SkipBack, Shuffle } from "lucide-react";
 import AudioPlayerGallery from "./AudioPlayerGallery";
@@ -160,82 +160,84 @@ export default function AudioPlayer() {
 
   return (
     <section className="bg-black">
-      <audio ref={audioRef}></audio>
+      <Suspense>
+        <audio ref={audioRef}></audio>
 
-      {/* Dynamisk sektion titel */}
-      <div className="relative h-[70px] mb-[61px]">
-        <h2 className="font-ubuntu font-medium text-[clamp(1.5rem,4vw,3rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">Night club track</h2>
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-60 h-0.5 bg-linear-to-r from-transparent via-primary to-transparent" />
-      </div>
+        {/* Dynamisk sektion titel */}
+        <div className="relative h-[70px] mb-[61px]">
+          <h2 className="font-ubuntu font-medium text-[clamp(1.5rem,4vw,3rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">Night club track</h2>
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-60 h-0.5 bg-linear-to-r from-transparent via-primary to-transparent" />
+        </div>
 
-      {/* Afspiller */}
-      <div className="max-w-[1440px] w-full xl:p-0 sm:p-4 mx-auto my-12 sm:my-16 lg:my-24">
-        <div className="flex flex-col items-center lg:flex-row lg:gap-8">
-          {/* Track img */}
-          {showImage && (
-            <div className="w-[336px] h-[308px] bg-gray-800 shrink-0">
-              <Image src={currentTrack.trackImg} alt={currentTrack.title} width={336} height={308} loading="lazy" className="w-full h-full object-cover" />
-            </div>
-          )}
-          <div className="w-full gap-2 sm:gap-4 lg:gap-6 flex flex-col justify-center px-4 md:px-0">
-            <div className="flex justify-center md:justify-start mb-4">
-              <h3 className="font-ubuntu font-medium text-[clamp(1rem,2vw,1.5rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">{currentTrack.title}</h3>
-            </div>
-
-            {/* Progress bar */}
-            <div className="mb-4 sm:mb-6 lg:mb-8 px-4 md:px-0">
-              <div className="relative w-full h-1 bg-gray-200 cursor-pointer" onClick={handleProgressClick}>
-                <div className="absolute h-full bg-primary" style={{ width: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }} />
-
-                {/* Cirkel til progress bar */}
-                <div className="absolute w-5 h-5 sm:w-6 sm:h-6 bg-white rounded-full -top-2 sm:-top-2.5 transform -translate-x-1/2" style={{ left: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }} />
+        {/* Afspiller */}
+        <div className="max-w-[1440px] w-full xl:p-0 sm:p-4 mx-auto my-12 sm:my-16 lg:my-24">
+          <div className="flex flex-col items-center lg:flex-row lg:gap-8">
+            {/* Track img */}
+            {showImage && (
+              <div className="w-[336px] h-[308px] bg-gray-800 shrink-0">
+                <Image src={currentTrack.trackImg} alt={currentTrack.title} width={336} height={308} loading="lazy" className="w-full h-full object-cover" />
               </div>
-            </div>
-
-            {/* Controls */}
-            <div className="flex flex-col lg:flex-row w-full items-center justify-center lg:justify-between gap-6 lg:gap-6 mb-4 sm:mb-6 lg:mb-8">
-              {/* Timer */}
-              <p className="text-white uppercase text-center lg:text-left text-sm sm:text-base mb-4 sm:mb-6 lg:mb-0">
-                {formatTime(currentTime)} / {formatTime(duration)}
-              </p>
-
-              <div className="flex items-center justify-center gap-6 sm:gap-8 ml-12 md:ml-0">
-                {/* skipback */}
-                <button onClick={handlePrev} className="text-white hover:text-primary transition-colors">
-                  <SkipBack className="w-7 h-7 sm:w-8 sm:h-8" />
-                </button>
-
-                {/* play/pause */}
-                <button onClick={handlePlay} className="text-white border-4 border-white rounded-full p-2 hover:border-primary hover:text-primary transition-colors">
-                  {isPlaying ? <Pause className="w-10 h-10" /> : <Play className="w-10 h-10" />}
-                </button>
-
-                {/* skipforward */}
-                <button onClick={handleNext} className="text-white hover:text-primary transition-colors">
-                  <SkipForward className="w-7 h-7 sm:w-8 sm:h-8" />
-                </button>
-
-                {/* shuffle */}
-                <button onClick={handleShuffle} className={`text-white hover:text-primary transition-colors ${isShuffle ? "text-primary" : ""}`}>
-                  <Shuffle className="w-7 h-7 sm:w-8 sm:h-8" />
-                </button>
+            )}
+            <div className="w-full gap-2 sm:gap-4 lg:gap-6 flex flex-col justify-center px-4 md:px-0">
+              <div className="flex justify-center md:justify-start mb-4">
+                <h3 className="font-ubuntu font-medium text-[clamp(1rem,2vw,1.5rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">{currentTrack.title}</h3>
               </div>
 
-              {/* Volume */}
-              <div className="flex items-center gap-3 sm:gap-4 w-full lg:w-auto justify-center max-w-xs lg:max-w-none">
-                <Volume2 className="w-5 h-5 sm:w-6 sm:h-6 text-white shrink-0" />
-                <div className="relative w-full lg:w-32 h-1 bg-gray-200 rounded-full">
-                  <div className="absolute h-full bg-primary rounded-full" style={{ width: `${volume * 100}%` }} />
-                  <input type="range" min={0} max={1} step={0.01} value={volume} onChange={handleVolumeChange} className="absolute inset-0 w-full appearance-none cursor-pointer bg-transparent [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 sm:[&::-webkit-slider-thumb]:w-5 sm:[&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:relative [&::-webkit-slider-thumb]:z-10 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 sm:[&::-moz-range-thumb]:w-5 sm:[&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:relative [&::-moz-range-thumb]:z-10" />
+              {/* Progress bar */}
+              <div className="mb-4 sm:mb-6 lg:mb-8 px-4 md:px-0">
+                <div className="relative w-full h-1 bg-gray-200 cursor-pointer" onClick={handleProgressClick}>
+                  <div className="absolute h-full bg-primary" style={{ width: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }} />
+
+                  {/* Cirkel til progress bar */}
+                  <div className="absolute w-5 h-5 sm:w-6 sm:h-6 bg-white rounded-full -top-2 sm:-top-2.5 transform -translate-x-1/2" style={{ left: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }} />
+                </div>
+              </div>
+
+              {/* Controls */}
+              <div className="flex flex-col lg:flex-row w-full items-center justify-center lg:justify-between gap-6 lg:gap-6 mb-4 sm:mb-6 lg:mb-8">
+                {/* Timer */}
+                <p className="text-white uppercase text-center lg:text-left text-sm sm:text-base mb-4 sm:mb-6 lg:mb-0">
+                  {formatTime(currentTime)} / {formatTime(duration)}
+                </p>
+
+                <div className="flex items-center justify-center gap-6 sm:gap-8 ml-12 md:ml-0">
+                  {/* skipback */}
+                  <button onClick={handlePrev} className="text-white hover:text-primary transition-colors">
+                    <SkipBack className="w-7 h-7 sm:w-8 sm:h-8" />
+                  </button>
+
+                  {/* play/pause */}
+                  <button onClick={handlePlay} className="text-white border-4 border-white rounded-full p-2 hover:border-primary hover:text-primary transition-colors">
+                    {isPlaying ? <Pause className="w-10 h-10" /> : <Play className="w-10 h-10" />}
+                  </button>
+
+                  {/* skipforward */}
+                  <button onClick={handleNext} className="text-white hover:text-primary transition-colors">
+                    <SkipForward className="w-7 h-7 sm:w-8 sm:h-8" />
+                  </button>
+
+                  {/* shuffle */}
+                  <button onClick={handleShuffle} className={`text-white hover:text-primary transition-colors ${isShuffle ? "text-primary" : ""}`}>
+                    <Shuffle className="w-7 h-7 sm:w-8 sm:h-8" />
+                  </button>
+                </div>
+
+                {/* Volume */}
+                <div className="flex items-center gap-3 sm:gap-4 w-full lg:w-auto justify-center max-w-xs lg:max-w-none">
+                  <Volume2 className="w-5 h-5 sm:w-6 sm:h-6 text-white shrink-0" />
+                  <div className="relative w-full lg:w-32 h-1 bg-gray-200 rounded-full">
+                    <div className="absolute h-full bg-primary rounded-full" style={{ width: `${volume * 100}%` }} />
+                    <input type="range" min={0} max={1} step={0.01} value={volume} onChange={handleVolumeChange} className="absolute inset-0 w-full appearance-none cursor-pointer bg-transparent [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 sm:[&::-webkit-slider-thumb]:w-5 sm:[&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:relative [&::-webkit-slider-thumb]:z-10 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 sm:[&::-moz-range-thumb]:w-5 sm:[&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:relative [&::-moz-range-thumb]:z-10" />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Track gallery */}
-      <AudioPlayerGallery tracks={tracks} currentTrackIndex={currentTrackIndex} onSelectTrack={setCurrentTrackIndex} />
+        {/* Track gallery */}
+        <AudioPlayerGallery tracks={tracks} currentTrackIndex={currentTrackIndex} onSelectTrack={setCurrentTrackIndex} />
+      </Suspense>
     </section>
   );
 }
