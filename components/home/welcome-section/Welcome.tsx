@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { HandPlatter } from "lucide-react";
 import { Martini } from "lucide-react";
+import Title from "@/components/shared/Title/Title";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
@@ -78,13 +79,7 @@ const Welcome = () => {
 
   return (
     <section className="mt-32 mx-auto px-4 max-w-[1440px]">
-      {/* Dynamisk sektion titel */}
-      <div className="relative h-[70px] mb-[61px]">
-        <h2 className="font-ubuntu font-medium text-[clamp(1.5rem,4vw,3rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">
-          Welcome in nightclub
-        </h2>
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-60 h-0.5 bg-linear-to-r from-transparent via-primary to-transparent" />
-      </div>
+      <Title title="Welcome to Madbars" wrap={true} />
 
       <Suspense
         fallback={
