@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Suspense } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function VideoPlayer() {
@@ -52,32 +52,34 @@ export default function VideoPlayer() {
 
   return (
     <section className="max-w-[1440px] mx-auto py-16">
-      {/* Dynamisk sektion titel */}
-      <div className="relative h-[70px] mb-[61px]">
-        <h2 className="font-ubuntu font-medium text-[clamp(1.5rem,4vw,3rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">Latest video</h2>
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-60 h-0.5 bg-linear-to-r from-transparent via-primary to-transparent" />
-      </div>
+      <Suspense>
+        {/* Dynamisk sektion titel */}
+        <div className="relative h-[70px] mb-[61px]">
+          <h2 className="font-ubuntu font-medium text-[clamp(1.5rem,4vw,3rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">Latest video</h2>
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-60 h-0.5 bg-linear-to-r from-transparent via-primary to-transparent" />
+        </div>
 
-      {/* Video container */}
-      <div className="relative w-full lg:h-[608px]  mb-14">
-        <div className="absolute -top-0.5 -left-0.5 w-0 h-0 lg:border-t-104 lg:border-r-104 border-t-48 border-t-primary border-r-48 border-r-transparent" />
-        <div className="absolute -bottom-0.5 -right-0.5 w-0 h-0 lg:border-b-104 lg:border-l-104 border-b-48 border-b-primary border-l-48 border-l-transparent" />
-        <video ref={videoRef} className="w-full h-full object-cover" onEnded={handleVideoEnd} autoPlay muted playsInline>
-          <source src={videos[currentVideoIndex].videoSrc} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
+        {/* Video container */}
+        <div className="relative w-full lg:h-[608px]  mb-14">
+          <div className="absolute -top-0.5 -left-0.5 w-0 h-0 lg:border-t-104 lg:border-r-104 border-t-48 border-t-primary border-r-48 border-r-transparent" />
+          <div className="absolute -bottom-0.5 -right-0.5 w-0 h-0 lg:border-b-104 lg:border-l-104 border-b-48 border-b-primary border-l-48 border-l-transparent" />
+          <video ref={videoRef} className="w-full h-full object-cover" onEnded={handleVideoEnd} autoPlay muted playsInline>
+            <source src={videos[currentVideoIndex].videoSrc} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
 
-      {/* Navigation knapper */}
-      <div className="flex items-center justify-center gap-3">
-        <button onClick={handlePrev} disabled={!canGoPrev} className={`w-12 h-12 flex items-center justify-center border-2 border-white transition-colors ${canGoPrev ? "hover:border-primary hover:text-primary text-white" : "opacity-30 cursor-not-allowed text-white"}`}>
-          <ChevronLeft size={32} />
-        </button>
+        {/* Navigation knapper */}
+        <div className="flex items-center justify-center gap-3">
+          <button onClick={handlePrev} disabled={!canGoPrev} className={`w-12 h-12 flex items-center justify-center border-2 border-white transition-colors ${canGoPrev ? "hover:border-primary hover:text-primary text-white" : "opacity-30 cursor-not-allowed text-white"}`}>
+            <ChevronLeft size={32} />
+          </button>
 
-        <button onClick={handleNext} disabled={!canGoNext} className={`w-12 h-12 flex items-center justify-center border-2 border-white transition-colors ${canGoNext ? "hover:border-primary hover:text-primary text-white" : "opacity-30 cursor-not-allowed text-white"}`}>
-          <ChevronRight size={32} />
-        </button>
-      </div>
+          <button onClick={handleNext} disabled={!canGoNext} className={`w-12 h-12 flex items-center justify-center border-2 border-white transition-colors ${canGoNext ? "hover:border-primary hover:text-primary text-white" : "opacity-30 cursor-not-allowed text-white"}`}>
+            <ChevronRight size={32} />
+          </button>
+        </div>
+      </Suspense>
     </section>
   );
 }
