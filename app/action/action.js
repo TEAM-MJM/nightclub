@@ -25,6 +25,24 @@ export const submitContact = async (formData) => {
   return response.ok ? { success: true } : { error: "Failed to send message." };
 };
 
+export const submitSubscription = async (prevState, formData) => {
+  const email = formData.get("email");
+  if (!email) {
+    return { error: "Email is required" };
+  }
+  const response = await fetch("http://localhost:4000/newsletters", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+    }),
+  });
+
+  return response.ok ? { success: true } : { error: "Failed to subscribe." };
+};
+
 export const submitComment = async (prevState, formData) => {
   const error = {};
   let success = null;
