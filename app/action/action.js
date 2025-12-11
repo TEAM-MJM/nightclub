@@ -1,12 +1,12 @@
 "use server";
 
-export const submitContact = async (formData) => {
+export const submitContact = async (prevState, formData) => {
   const name = formData.get("name");
   const email = formData.get("email");
   const comment = formData.get("comment");
 
   if (!name || !email || !comment) {
-    return { error: "All fields are required" };
+    return { error: "All fields are required", name, email, comment };
   }
 
   const response = await fetch("http://localhost:4000/contact_messages", {
@@ -22,7 +22,7 @@ export const submitContact = async (formData) => {
     }),
   });
 
-  return response.ok ? { success: true } : { error: "Failed to send message." };
+  return response.ok ? { success: true } : { error: "Failed to send message.", name, email, comment };
 };
 
 export const submitSubscription = async (prevState, formData) => {
