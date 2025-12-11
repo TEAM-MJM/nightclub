@@ -1,5 +1,11 @@
 import TableGrid from "@/components/booking/table-grid/TableGrid";
 import BookingForm from "@/components/booking/booking-form/BookingForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Book Table",
+  description: "Experience the Ultimate Nightlife",
+};
 
 export default function Booking() {
   return (
