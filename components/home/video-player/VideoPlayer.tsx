@@ -51,7 +51,7 @@ export default function VideoPlayer() {
   const canGoNext = currentVideoIndex < videos.length - 1;
 
   return (
-    <section className="max-w-[1440px] mx-auto px-[60px] py-16">
+    <section className="max-w-[1440px] mx-auto py-16">
       {/* Dynamisk sektion titel */}
       <div className="relative h-[70px] mb-[61px]">
         <h2 className="font-ubuntu font-medium text-[clamp(1.5rem,4vw,3rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">Latest video</h2>
@@ -60,8 +60,8 @@ export default function VideoPlayer() {
 
       {/* Video container */}
       <div className="relative w-full lg:h-[608px]  mb-14">
-        <div className="absolute -top-0.5 -left-0.5 w-0 h-0 border-t-104 border-t-primary border-r-104 border-r-transparent" />
-        <div className="absolute -bottom-0.5 -right-0.5 w-0 h-0 border-b-104 border-b-primary border-l-104 border-l-transparent" />
+        <div className="absolute -top-0.5 -left-0.5 w-0 h-0 lg:border-t-104 lg:border-r-104 border-t-48 border-t-primary border-r-48 border-r-transparent" />
+        <div className="absolute -bottom-0.5 -right-0.5 w-0 h-0 lg:border-b-104 lg:border-l-104 border-b-48 border-b-primary border-l-48 border-l-transparent" />
         <video ref={videoRef} className="w-full h-full object-cover" onEnded={handleVideoEnd} autoPlay muted playsInline>
           <source src={videos[currentVideoIndex].videoSrc} type="video/mp4" />
           Your browser does not support the video tag.

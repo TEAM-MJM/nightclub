@@ -177,17 +177,13 @@ export default function AudioPlayer() {
               <Image src={currentTrack.trackImg} alt={currentTrack.title} width={336} height={308} loading="lazy" className="w-full h-full object-cover" />
             </div>
           )}
-          <div className="w-full gap-2 sm:gap-4 lg:gap-6 flex flex-col justify-center">
-            <div className="flex items-start">
-              <h3 className="font-ubuntu font-medium text-[clamp(1.5rem,4vw,3rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">{currentTrack.title}</h3>
-            </div>
-            {/* Track info */}
-            <div className="flex flex-col justify-between">
-              <div className="flex-1 flex flex-col justify-center"></div>
+          <div className="w-full gap-2 sm:gap-4 lg:gap-6 flex flex-col justify-center px-4 md:px-0">
+            <div className="flex justify-center md:justify-start mb-4">
+              <h3 className="font-ubuntu font-medium text-[clamp(1rem,2vw,1.5rem)] tracking-[2.85px] uppercase text-white text-center text-nowrap leading-normal">{currentTrack.title}</h3>
             </div>
 
             {/* Progress bar */}
-            <div className="mb-4 sm:mb-6 lg:mb-8">
+            <div className="mb-4 sm:mb-6 lg:mb-8 px-4 md:px-0">
               <div className="relative w-full h-1 bg-gray-200 cursor-pointer" onClick={handleProgressClick}>
                 <div className="absolute h-full bg-primary" style={{ width: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }} />
 
@@ -203,7 +199,7 @@ export default function AudioPlayer() {
                 {formatTime(currentTime)} / {formatTime(duration)}
               </p>
 
-              <div className="flex items-center justify-center gap-6 sm:gap-8">
+              <div className="flex items-center justify-center gap-6 sm:gap-8 ml-12 md:ml-0">
                 {/* skipback */}
                 <button onClick={handlePrev} className="text-white hover:text-primary transition-colors">
                   <SkipBack className="w-7 h-7 sm:w-8 sm:h-8" />
