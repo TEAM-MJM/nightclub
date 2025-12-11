@@ -2,10 +2,12 @@ import { Suspense } from "react";
 import Image from "next/image";
 import Button from "@/components/shared/button/Button";
 import { Metadata } from "next";
+import PageBanner from "@/components/shared/Page-banner/PageBanner";
 
 export default async function blogPage() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
+      <PageBanner title="Blog" wrap={true} />
       <div>
         <FetchBlogs />
       </div>

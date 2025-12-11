@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="relative w-full h-[800px] bg-black">
+    <footer className="relative w-full h-[800px] bg-black mt-24 overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 pointer-events-none">
         <Image src="/assets/bg/footerbg.jpg" alt="" fill className="object-cover" loading="lazy" />
