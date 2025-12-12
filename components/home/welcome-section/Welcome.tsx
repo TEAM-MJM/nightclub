@@ -79,7 +79,7 @@ const Welcome = () => {
 
   return (
     <section className="mt-32 mx-auto px-4 max-w-[1440px]">
-      <Title title="Welcome to Madbars" wrap={true} />
+      <Title title="Welcome in Nightclub" wrap={true} />
 
       <Suspense
         fallback={
