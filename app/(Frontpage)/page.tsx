@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Gallery from "@/components/home/gallery/Gallery";
 import AudioPlayer from "@/components/home/audio-player/AudioPlayer";
 import Welcome from "@/components/home/welcome-section/Welcome";
 import EventsContainer from "@/components/home/Events-container/EventsContainer";
@@ -12,6 +12,7 @@ export default function Home() {
       <main className="w-full flex-col items-center justify-betweensm:items-start">
         <Welcome />
         <EventsContainer />
+        <Gallery />
         <AudioPlayer />
         <VideoPlayer />
         <TestimonialsContainer />
