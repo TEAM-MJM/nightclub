@@ -13,7 +13,7 @@ export default function Booking() {
     <div>
       <PageBanner title="Book a Table" wrap={true} />
       <div className="flex min-h-screen items-center justify-center">
-        <main className="w-full max-w-[1440px] flex-col items-center justify-betweensm:items-start">
+        <main className="w-full md:max-w-[1440px] max-w-9/10 flex-col items-center justify-betweensm:items-start">
           <TableGrid></TableGrid>
         </main>
       </div>

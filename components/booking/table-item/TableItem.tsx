@@ -24,7 +24,7 @@ const TableItem = ({ size, num, onClick }: TableProps) => {
 
   if (size == 1) {
     return (
-      <motion.button initial="default" whileHover="hover" onClick={handleClick} className="grid grid-cols-[max-content] grow-1 cursor-pointer">
+      <motion.button initial="default" whileHover="hover" onClick={handleClick} className="grid grid-cols-[max-content] justify-center grow-1 cursor-pointer">
         <motion.p variants={pVariants} className="col-start-1 col-end-2 row-start-1 row-end-2 place-self-center z-1 text-xl">
           {num}
         </motion.p>
@@ -33,7 +33,7 @@ const TableItem = ({ size, num, onClick }: TableProps) => {
     );
   } else if (size == 2) {
     return (
-      <motion.button initial="default" whileHover="hover" onClick={handleClick} className="grid grid-cols-[max-content] grow-1 cursor-pointer">
+      <motion.button initial="default" whileHover="hover" onClick={handleClick} className="grid grid-cols-[max-content] justify-center grow-1 cursor-pointer">
         <motion.p variants={pVariants} className="col-start-1 col-end-2 row-start-1 row-end-2 place-self-center z-1 text-xl">
           {num}
         </motion.p>
@@ -42,7 +42,7 @@ const TableItem = ({ size, num, onClick }: TableProps) => {
     );
   } else if (size == 3) {
     return (
-      <motion.button initial="default" whileHover="hover" onClick={handleClick} className="grid grid-cols-[max-content] grow-1 cursor-pointer">
+      <motion.button initial="default" whileHover="hover" onClick={handleClick} className="grid grid-cols-[max-content] justify-center grow-1 cursor-pointer">
         <motion.p variants={pVariants} className="col-start-1 col-end-2 row-start-1 row-end-2 place-self-center z-1 text-xl">
           {num}
         </motion.p>
