@@ -67,14 +67,7 @@ export default function blog() {
       <PageBanner title={blog.title} wrap={true} />
       <div className="max-w-8/10 m-auto">
         <article>
-          <Image
-            src={blog.asset.url}
-            alt={blog.title}
-            width={500}
-            height={500}
-            style={imageStyle}
-            unoptimized
-          ></Image>
+          <Image src={blog.asset.url} alt={blog.title} width={500} height={500} style={imageStyle} unoptimized></Image>
           <h2>{blog.title}</h2>
           <div className="flex gap-2 text-primary">
             <p>{blog.author}</p>
