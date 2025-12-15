@@ -4,6 +4,7 @@ import Welcome from "@/components/home/welcome-section/Welcome";
 import EventsContainer from "@/components/home/Events-container/EventsContainer";
 import TestimonialsContainer from "@/components/home/testimonials-container/TestimonialsContainer";
 import VideoPlayer from "@/components/home/video-player/VideoPlayer";
+import RecentBlog from "@/components/home/recent-blog/RecentBlog";
 import Newsletter from "@/components/home/newsletter/Newsletter";
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
         <AudioPlayer />
         <VideoPlayer />
         <TestimonialsContainer />
+        <RecentBlog />
         <Newsletter />
       </main>
     </div>

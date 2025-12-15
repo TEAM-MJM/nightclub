@@ -63,17 +63,28 @@ export default function blog() {
   console.log("data", blog);
 
   return (
-    <Suspense>
+    <Suspense
+      fallback={
+        <div className="mx-auto w-24 h-24 flex items-center justify-center my-24">
+          <Image src="/assets/loader/madbars.gif" alt="Loading..." width={100} height={100} unoptimized />
+        </div>
+      }
+    >
       <PageBanner title={blog.title} wrap={true} />
       <div className="max-w-8/10 m-auto">
         <article>
           <Image src={blog.asset.url} alt={blog.title} width={500} height={500} style={imageStyle} unoptimized></Image>
-          <h2>{blog.title}</h2>
-          <div className="flex gap-2 text-primary">
+          <h2 className="text-md mb-2">{blog.title}</h2>
+          <div className="flex gap-2 text-sm text-primary mb-4">
             <p>{blog.author}</p>
+            <p>/</p>
+            <p>
+              {blog.comments.length} {blog.comments.length == 1 ? "Comment" : "Comments"}{" "}
+            </p>
+            <p>/</p>
             <p>16. Nov 2018</p>
           </div>
-          <p>{blog.content}</p>
+          <p className="text-sm/(--line-height-relaxed)">{blog.content}</p>
           <h2 className="text-2xl mt-8">
             {blog.comments.length}&nbsp;
             {blog.comments.length == 1 ? "Comment" : "Comments"}

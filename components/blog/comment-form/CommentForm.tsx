@@ -5,7 +5,7 @@ import { submitForm } from "@/app/action/action";
 import Button from "@/components/shared/button/Button";
 
 interface CommentFormProps {
-  id: number;
+  id: string;
   onSuccess?: () => void;
 }
 
