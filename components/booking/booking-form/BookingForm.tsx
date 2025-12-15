@@ -19,7 +19,7 @@ const BookingForm = ({ tableId }: BookingFormProps) => {
   const [state, postReservation] = useActionState(submitForm, { error: {} });
   console.log("State", state);
   return (
-    <section className="mt-5 md:mt-1">
+    <section className="mt-5 md:mt-1 mx-5 xl:mx-0">
       <h2 className="uppercase text-2xl mb-8">Book a Table</h2>
       {state.success && <p className="pb-6 text-primary">Table {state.tableId} booked successfully!</p>}
       {state.success === false && <p className="pb-6">Something went wrong!</p>}
