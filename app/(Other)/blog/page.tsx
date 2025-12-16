@@ -33,6 +33,22 @@ const imageStyle = {
 };
 
 const FetchBlogs = async () => {
+  try {
+    const response = await fetch(`http://localhost:4000/blogposts`);
+    const blogs = await response.json();
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch blog posts");
+    }
+
+    if (!blogs || blogs.length === 0) {
+      throw new Error("No blog posts available.");
+    }
+  } catch (error) {
+    console.error("Error fetching blog posts:", error);
+    return <p className="text-center my-10">Unable to load blog posts at this time. Please try again later.</p>;
+  }
+
   const response = await fetch(`http://localhost:4000/blogposts`);
   const blogs = await response.json();
 
