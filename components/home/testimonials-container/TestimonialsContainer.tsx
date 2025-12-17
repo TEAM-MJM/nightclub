@@ -17,17 +17,25 @@ interface Testimonial {
 }
 
 const TestimonialsContainer = () => {
-  const { data: testimonials, error, isLoading } = useSWR<Testimonial[]>("/api/testimonials", fetcher);
+  const { data: testimonials, error } = useSWR<Testimonial[]>("/api/testimonials", fetcher);
 
   // Error
   if (error || !testimonials || !Array.isArray(testimonials) || testimonials.length === 0) {
     return (
       <section className="my-24 relative w-full bg-cover bg-center bg-no-repeat py-16 px-4">
-        <div className="absolute inset-0 pointer-events-none">
-          <Image src="/assets/bg/footerbg.jpg" alt="" fill className="object-cover" loading="lazy" />
+        <div className="absolute inset-0 pointer-events-none -z-1">
+          <Image
+            src="/assets/bg/footerbg.jpg"
+            alt="testimonials background"
+            fill
+            className="object-cover"
+            loading="lazy"
+          />
           <div className="absolute inset-0 bg-black/80" />
         </div>
-        <p className="text-center my-10 text-white">Unable to load testimonials at this time.</p>
+        <p className="text-center my-10 text-white">
+          Unable to load testimonials at this time. Please try again later.
+        </p>
       </section>
     );
   }
@@ -35,8 +43,14 @@ const TestimonialsContainer = () => {
   // Testimonials
   return (
     <section className="my-24 relative w-full bg-cover bg-center bg-no-repeat py-16 px-4">
-      <div className="absolute inset-0 pointer-events-none">
-        <Image src="/assets/bg/footerbg.jpg" alt="" fill className="object-cover" loading="lazy" />
+      <div className="absolute inset-0 pointer-events-none -z-1">
+        <Image
+          src="/assets/bg/footerbg.jpg"
+          alt="testimonials background"
+          fill
+          className="object-cover"
+          loading="lazy"
+        />
         <div className="absolute inset-0 bg-black/80" />
       </div>
       <Testimonials testimonials={testimonials} />
