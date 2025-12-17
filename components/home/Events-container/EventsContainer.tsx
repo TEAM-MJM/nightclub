@@ -4,23 +4,13 @@ import Events from "../events-of-month/Events";
 import Image from "next/image";
 import Title from "@/components/shared/Title/Title";
 import useSWR from "swr";
+import { EventItem } from "@/lib/types";
 
 // SWR fetcher function
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-interface Event {
-  id: number;
-  date: string;
-  title: string;
-  description: string;
-  location: string;
-  asset: {
-    url: string;
-  };
-}
-
 const EventsContainer = () => {
-  const { data: events, error } = useSWR<Event[]>("/api/events", fetcher);
+  const { data: events, error } = useSWR<EventItem[]>("/api/events", fetcher);
 
   // Error
   if (error || !events || !Array.isArray(events) || events.length === 0) {

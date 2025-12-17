@@ -47,6 +47,7 @@ const Navigation = () => {
             </button>
           </div>
 
+          {/* Login Popover */}
           <div
             popover="manual"
             id="login"

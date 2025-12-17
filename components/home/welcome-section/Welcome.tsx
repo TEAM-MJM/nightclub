@@ -6,6 +6,8 @@ import { HandPlatter } from "lucide-react";
 import { Martini } from "lucide-react";
 import Title from "@/components/shared/Title/Title";
 
+// https://motion.dev/tutorials/react-variants
+
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
 const cornerVariants = {

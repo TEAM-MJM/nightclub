@@ -3,18 +3,10 @@
 import Testimonials from "../testimonials/Testimonials";
 import Image from "next/image";
 import useSWR from "swr";
+import { Testimonial } from "@/lib/types";
 
 // SWR fetcher function
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-interface Testimonial {
-  id: number;
-  name: string;
-  content: string;
-  asset: {
-    url: string;
-  };
-}
 
 const TestimonialsContainer = () => {
   const { data: testimonials, error } = useSWR<Testimonial[]>("/api/testimonials", fetcher);
