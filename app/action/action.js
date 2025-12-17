@@ -22,7 +22,9 @@ export const submitContact = async (prevState, formData) => {
     }),
   });
 
-  return response.ok ? { success: true } : { error: "Failed to send message.", name, email, comment };
+  return response.ok
+    ? { success: true }
+    : { error: "Failed to send message.", name, email, comment };
 };
 
 export const submitSubscription = async (prevState, formData) => {
@@ -30,17 +32,24 @@ export const submitSubscription = async (prevState, formData) => {
   if (!email) {
     return { error: "Email is required" };
   }
-  const response = await fetch("http://localhost:4000/newsletters", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email,
-    }),
-  });
 
-  return response.ok ? { success: true } : { error: "Failed to subscribe." };
+  try {
+    const response = await fetch("http://localhost:4000/newsletters", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    });
+
+    if (response.ok) {
+      return { success: true };
+    }
+  } catch (error) {
+    return { error: "An error occurred. Please try again later." };
+  }
 };
 
 export const submitForm = async (prevState, formData) => {
@@ -57,7 +66,8 @@ export const submitForm = async (prevState, formData) => {
 
   const currentTime = new Date();
 
-  const isBooking = tableId !== null && (numberGuests !== null || yourDate !== null || yourTel !== null);
+  const isBooking =
+    tableId !== null && (numberGuests !== null || yourDate !== null || yourTel !== null);
 
   const fetchType = isBooking ? "reservations" : "comments";
 
@@ -82,7 +92,9 @@ export const submitForm = async (prevState, formData) => {
       return { error, yourName, yourEmail, yourComment };
     }
   } else if (fetchType === "reservations") {
-    const compareDate = await fetch(`http://localhost:4000/reservations?date=${yourDate}&table=${tableId}`);
+    const compareDate = await fetch(
+      `http://localhost:4000/reservations?date=${yourDate}&table=${tableId}`
+    );
     const dateSame = await compareDate.json();
 
     if (dateSame.length > 0) {
@@ -153,5 +165,15 @@ export const submitForm = async (prevState, formData) => {
 
   success = response.ok;
 
-  return { success, yourName, yourEmail, yourComment, currentTime, tableId, yourDate, numberGuests, yourTel };
+  return {
+    success,
+    yourName,
+    yourEmail,
+    yourComment,
+    currentTime,
+    tableId,
+    yourDate,
+    numberGuests,
+    yourTel,
+  };
 };
