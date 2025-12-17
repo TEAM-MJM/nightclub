@@ -115,10 +115,13 @@ const EventCard = ({ event }: { event: EventItem }) => {
                 </motion.button>
               </Link>
               <motion.div variants={contentVariants} className="bg-black/60 p-4 pr-16">
-                <motion.p variants={contentVariants3} className="text-white text-lg">
+                <motion.p variants={contentVariants3} className="text-white sm:text-lg text-md">
                   {event.title}
                 </motion.p>
-                <motion.p variants={contentVariants3} className="text-white text-sm line-clamp-3">
+                <motion.p
+                  variants={contentVariants3}
+                  className="text-white text-sm sm:line-clamp-3 line-clamp-2"
+                >
                   {event.description}
                 </motion.p>
               </motion.div>
