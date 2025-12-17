@@ -5,11 +5,13 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import Image from "next/image";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import EventCard from "../event-card/Event-card";
 import { EventItem } from "@/lib/types";
 
 const Events = ({ events }: { events: EventItem[] }) => {
+  const [activeCard, setActiveCard] = useState<number | null>(null);
+
   return (
     <Suspense
       fallback={
@@ -45,7 +47,7 @@ const Events = ({ events }: { events: EventItem[] }) => {
         >
           {events?.map((event) => (
             <SwiperSlide key={event.id} className="pb-16">
-              <EventCard event={event} />
+              <EventCard event={event} activeCard={activeCard} setActiveCard={setActiveCard} />
             </SwiperSlide>
           ))}
         </Swiper>

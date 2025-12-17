@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { EventItem } from "@/lib/types";
@@ -49,7 +49,15 @@ const parentVariants = {
   hover: { opacity: 1, transition: { delayChildren: 0.05 } },
 };
 
-const EventCard = ({ event }: { event: EventItem }) => {
+const EventCard = ({
+  event,
+  activeCard,
+  setActiveCard,
+}: {
+  event: EventItem;
+  activeCard: number | null;
+  setActiveCard: (id: number | null) => void;
+}) => {
   const eventDay = new Date(event.date).getDate();
   const eventMonth = new Date(event.date).toLocaleString("default", { month: "short" });
   const eventDayMonth = `${eventDay} ${eventMonth}`;
@@ -58,10 +66,8 @@ const EventCard = ({ event }: { event: EventItem }) => {
     minute: "2-digit",
   });
 
-  const [activeCard, setActiveCard] = useState<number | null>(null);
-
-  const handleCardTap = (id: number) => {
-    setActiveCard(activeCard === id ? null : id);
+  const handleCardTap = (cardIndex: number) => {
+    setActiveCard(activeCard === cardIndex ? null : cardIndex);
   };
 
   return (
