@@ -7,23 +7,9 @@ import "swiper/css/pagination";
 import Image from "next/image";
 import { Suspense } from "react";
 import EventCard from "../event-card/Event-card";
+import { EventItem } from "@/lib/types";
 
-interface Event {
-  id: number;
-  date: string;
-  title: string;
-  description: string;
-  location: string;
-  asset: {
-    url: string;
-  };
-}
-
-interface EventsProps {
-  events: Event[];
-}
-
-const Events = ({ events }: EventsProps) => {
+const Events = ({ events }: { events: EventItem[] }) => {
   return (
     <Suspense
       fallback={
@@ -49,8 +35,6 @@ const Events = ({ events }: EventsProps) => {
             delay: 2500,
             disableOnInteraction: true,
           }}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
           pagination={{ clickable: true, type: "bullets" }}
           breakpoints={{
             1024: {

@@ -6,21 +6,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Suspense } from "react";
 import Image from "next/image";
+import { Testimonial } from "@/lib/types";
 
-interface Testimonials {
-  id: number;
-  name: string;
-  content: string;
-  asset: {
-    url: string;
-  };
-}
-
-interface TestimonialsProps {
-  testimonials: Testimonials[];
-}
-
-const Testimonials = ({ testimonials }: TestimonialsProps) => {
+const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
   return (
     <Suspense
       fallback={
@@ -47,8 +35,6 @@ const Testimonials = ({ testimonials }: TestimonialsProps) => {
             disableOnInteraction: true,
           }}
           centeredSlides={true}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
           pagination={{ clickable: true, type: "bullets" }}
         >
           {testimonials?.map((testimonial) => (
