@@ -78,6 +78,8 @@ export function DatePicker({ state }: { state: any }) {
             mode="single"
             selected={date}
             captionLayout="dropdown"
+            startMonth={new Date(new Date().getFullYear() + 0, 0)}
+            endMonth={new Date(new Date().getFullYear() + 5, 6)}
             onSelect={(date) => {
               setDate(date);
               setOpen(false);
