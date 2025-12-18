@@ -22,7 +22,7 @@ interface BlogPost {
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const RecentBlog = () => {
-  const { data: blogs, error } = useSWR<BlogPost[]>("/api/blogposts", fetcher);
+  const { data: blogs, error } = useSWR<BlogPost[]>("/api/blogposts", fetcher, { suspense: true, fallbackData: [] });
 
   if (error || !blogs || !Array.isArray(blogs)) {
     return (
