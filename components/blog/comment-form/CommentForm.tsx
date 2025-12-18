@@ -25,9 +25,18 @@ const CommentForm = ({ id, onSuccess }: CommentFormProps) => {
 
       <form action={postComment} className="grid grid-cols-2 gap-4">
         <input type="hidden" name="blogId" value={id}></input>
-        <input type="text" name="yourName" placeholder="Your Name" className="border px-3 py-6"></input>
-        <input type="email" name="yourEmail" placeholder="Your Email" className="border px-3 py-6"></input>
-        <textarea name="yourComment" rows={10} placeholder="Your Comment" className="border px-3 py-5 col-span-2"></textarea>
+        <div>
+          {state.error?.yourName && <p className="text-red-500">{state.error.yourName}</p>}
+          <input type="text" name="yourName" placeholder="Your Name" className="border w-full py-6 px-3"></input>
+        </div>
+        <div>
+          {state.error?.yourEmail && <p className="text-red-500">{state.error.yourEmail}</p>}
+          <input type="email" name="yourEmail" placeholder="Your Email" className="border px-3 w-full py-6"></input>
+        </div>
+        <div className="col-span-2">
+          {state.error?.yourComment && <p className="text-red-500 col-start-1 row-start-1">{state.error.yourComment}</p>}
+          <textarea name="yourComment" rows={10} placeholder="Your Comment" className="border px-3 py-5 w-full"></textarea>
+        </div>
         <Button isLink={false} text="Submit" stylePlace="place-self-end col-start-2"></Button>
       </form>
     </section>
