@@ -51,17 +51,17 @@ export default function Gallery() {
         <section className="w-full py-16">
           <Title title="Night club Gallery" />
           <div>
-            <div className="flex w-full mt-8">
+            <div className="flex flex-col md:flex-row w-full mt-8 gap-0 md:gap-0">
               {images.slice(0, 4).map((img, i) => (
-                <motion.div key={img.id} className="h-82 flex-1 cursor-pointer relative overflow-hidden" initial={{ x: -150, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: i * 0.15, ease: "easeInOut" }} onClick={() => openLightbox(i)}>
+                <motion.div key={img.id} className="h-82 md:h-82 md:flex-1 cursor-pointer relative overflow-hidden" initial={{ x: -150, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: i * 0.15, ease: "easeInOut" }} onClick={() => openLightbox(i)}>
                   <Image src={img.image} alt={img.alt} fill className="object-cover hover:scale-110 transition-transform duration-300" unoptimized />
                 </motion.div>
               ))}
             </div>
 
-            <div className="flex w-full">
+            <div className="flex flex-col md:flex-row w-full gap-0 md:gap-0">
               {images.slice(4, 7).map((img, i) => (
-                <motion.div key={img.id} className="h-82 flex-1 cursor-pointer relative overflow-hidden" initial={{ x: -150, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: i * 0.15, ease: "easeInOut" }} onClick={() => openLightbox(i + 4)}>
+                <motion.div key={img.id} className="h-82 md:h-82 md:flex-1 cursor-pointer relative overflow-hidden" initial={{ x: -150, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: i * 0.15, ease: "easeInOut" }} onClick={() => openLightbox(i + 4)}>
                   <Image src={img.image} alt={img.alt} fill className="object-cover hover:scale-110 transition-transform duration-300" unoptimized />
                 </motion.div>
               ))}
