@@ -44,13 +44,13 @@ const RecentBlog = () => {
   const recentBlogs = blogs.slice(numberBlogs - 3, numberBlogs);
 
   return (
-    <section className="max-w-[1440px] m-auto mb-40">
+    <section className="lg:max-w-[1440px] max-w-9/10 px-2 m-auto mb-40">
       <Title title="Recent Blog" />
-      <div className="flex gap-5">
+      <div className="flex lg:flex-row flex-col lg:gap-5 gap-10">
         {recentBlogs.map((blog) => (
           <Link href={`/blog/${blog.id}`} key={blog.id}>
             <Image src={blog.asset.url} alt={blog.title} width={240} height={459} style={imageStyle} unoptimized />
-            <h3 className="text-md uppercase mb-1">{blog.title}</h3>
+            <h3 className="text-md uppercase lg:mt-0 mt-8 mb-1">{blog.title}</h3>
             <div className="flex text-primary gap-2 text-sm mb-4">
               <p>BY: {blog.author}</p>
               <p>/</p> <FetchComments id={blog.id} />
