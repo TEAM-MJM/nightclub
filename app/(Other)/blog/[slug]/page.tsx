@@ -7,11 +7,6 @@ import { Suspense } from "react";
 import CommentSection from "@/components/blog/comments-section/CommentSection";
 import CommentForm from "@/components/blog/comment-form/CommentForm";
 import PageBanner from "@/components/shared/Page-banner/PageBanner";
-import Button from "@/components/shared/button/Button";
-
-interface Props {
-  params: { slug: string };
-}
 
 const imageStyle = {
   width: "100%",

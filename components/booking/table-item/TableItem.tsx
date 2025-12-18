@@ -30,7 +30,6 @@ const TableItem = ({ size, num, onClick, isSelected = false }: TableProps) => {
   const handleClick = () => {
     if (onClick) onClick(Number(num));
   };
-  console.log("Rendering TableItem:", { size, num, isSelected });
   if (size == 1) {
     return (
       <motion.button initial="default" whileHover="hover" whileTap="tap" onClick={handleClick} className="grid grid-cols-1 justify-center grow-1 cursor-pointer">
